@@ -22,7 +22,7 @@ export class WeatherService {
           icon: data.weather[0] ? data.weather[0].icon : '',
           humidity: data.main.humidity,
           temp: data.main.temp,
-          pop: data.pop ? data.pop : 0 // Not available in free version (current weather data)!
+          pop: data.pop ? data.pop : 0 // Not available in free API version/current weather data!
         } as IWeatherData;
       }),
       catchError(error => {
