@@ -1,12 +1,22 @@
+import { HttpClientModule } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { WeatherService } from './services/weather/weather.service';
 
 describe('AppComponent', () => {
+
   beforeEach(async () => {
+    const eventServiceSpyObj = jasmine.createSpyObj('WeatherService', ['getCurrentWeatherData'])
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        HttpClientModule
+      ],
+      providers: [ { provide: WeatherService, useValue: eventServiceSpyObj } ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
@@ -14,18 +24,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'weather-simple-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('weather-simple-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('weather-simple-app app is running!');
   });
 });
