@@ -29,7 +29,7 @@ export class WeatherService {
     return this.http.get<IGeoCodingData[]>(url, { params: requestParams });
   }
 
-
+  // For now returning only current and daily (for PoP/Probability of precipitation/Chance of rain) data only.
   public getWeatherData(lon: number, lat: number, units: string): Observable<IWeatherData> {
     const url: string = `${environment.api_url}data/2.5/onecall`;
     let requestParams: HttpParams = new HttpParams();

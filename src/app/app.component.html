@@ -1,6 +1,3 @@
-<ng-container *ngIf=" (list$ | async) as list">
-  <div class="container">
-    <app-weather-card *ngFor="let data of list" [data]="data"></app-weather-card>
-  </div>
-</ng-container>
-
+<div class="container">
+  <app-weather-card *ngFor="let data of list" [data]="data"></app-weather-card>
+</div>

@@ -1,35 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { IGeoCodingData, IWeatherData } from './interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IGeoCodingData, IWeatherCardData, IWeatherData } from './interfaces';
 import { WeatherService } from './services/weather/weather.service';
-import { catchError, EMPTY, forkJoin, map, merge, mergeMap, Observable, of, throwError, zip } from 'rxjs';
-import { IWeatherCardData } from './interfaces/weather/weather-card-data.interface';
+import { catchError, map, mergeMap, of, Subject, takeUntil, zip } from 'rxjs';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [WeatherService]
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  public list$!: Observable<IWeatherCardData[]>;
+export class AppComponent implements OnInit, OnDestroy {
+  public list: IWeatherCardData[] = [];
+  destroy$ = new Subject<void>();
 
   constructor(private service: WeatherService) { }
 
   ngOnInit(): void {
-    // this.list$ = forkJoin(['London', 'Paris', 'New York', 'Los Angeles','Tokyo'].map((city: string) =>
-    //   this.service.getCurrentWeatherData(city, 'metric').pipe(
-    //     mergeMap((data: IWeatherData) => {
-    //       if (data.coord) {
-    //         return this.service.getProbabilitOfPrecipitationForToday(data.coord).pipe(map(el => ({...data, pop: el}) as IWeatherData));
-    //       }
-    //       return of(data);
-    //     })
-    //   )
-    // ));
+    this.loadWeatherData();
+  }
 
-
-    this.list$ = zip(['Longfdgfdgdon', 'Paris', 'New York', 'Los Angeles', 'Tokyo'].map((city: string) =>
+  loadWeatherData(): void {
+    zip(['london', 'Paris', 'New York', 'Los Angeles', 'Tokyo'].map((city: string) =>
       this.service.getGeocodingInfo(city, 1).pipe(
         mergeMap((geo: IGeoCodingData[]) => {
           if (geo.length > 0) {
@@ -44,12 +35,19 @@ export class AppComponent implements OnInit {
               } as IWeatherCardData))
             );
           }
-          throw new Error('Invalid city name!'); 
+          throw new Error('Invalid city name!');
         }),
         catchError(err => {
-          return of({ name: 'london', description: '',  icon: '', humidity: 0, pop: 0, temp: 0 })
-        })
+          // Using service like Bugsnag is possible to log and easily manage these errors
+          return of({ name: 'london', description: '', icon: '', humidity: 0, pop: 0, temp: 0 })
+        }),
+        takeUntil(this.destroy$)
       )
-    ));
+    )).subscribe(result => this.list = result);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
 }

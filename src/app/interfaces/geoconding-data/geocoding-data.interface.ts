@@ -1,8 +1,8 @@
 export interface IGeoCodingData {
 	name: string;
-	local_names: { [id: string] : string };
+	local_names: { [key: string] : string };
 	lat: number;
 	lon: number;
 	country: string;
-	state: string;
+	state?: string;
 }
