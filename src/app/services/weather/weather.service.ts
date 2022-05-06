@@ -19,7 +19,7 @@ export class WeatherService {
       map((data: any) => {
         return {
           name: data.name,
-          icon: data.weather[0] ? data.weather[0].icon : '',
+          icon: data.weather[0].icon,
           humidity: data.main.humidity,
           temp: data.main.temp,
           pop: data.pop ? data.pop : 0 // Not available in free API version/current weather data!

@@ -34,7 +34,8 @@ describe('WeatherService', () => {
         {
           main: { temp: 14.23, 'humidity': 72 },
           name: 'London',
-          weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }]
+          weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+          pop: 0.23
         }
       );
       expect(req.request.method).toBe('GET');

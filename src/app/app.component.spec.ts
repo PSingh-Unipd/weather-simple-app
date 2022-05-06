@@ -1,13 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { WeatherService } from './services/weather/weather.service';
 
 describe('AppComponent', () => {
-
+  let fixture: ComponentFixture<AppComponent>;
+  let weatherServiceMock;
   beforeEach(async () => {
-    const eventServiceSpyObj = jasmine.createSpyObj('WeatherService', ['getCurrentWeatherData'])
+    weatherServiceMock = jasmine.createSpyObj('WeatherService', ['getCurrentWeatherData'])
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
@@ -15,12 +16,15 @@ describe('AppComponent', () => {
       imports: [
         HttpClientModule
       ],
-      providers: [ { provide: WeatherService, useValue: eventServiceSpyObj } ],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [ { provide: WeatherService, useValue: weatherServiceMock } ]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    weatherServiceMock.getCurrentWeatherData.and.returnValue(of({ name: 'unit test', icon: '', humidity: 0, pop: 0, temp: 0 }));
+    fixture.detectChanges();
   });
 
-  it('should create the app', () => {
+  it('should create the AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
