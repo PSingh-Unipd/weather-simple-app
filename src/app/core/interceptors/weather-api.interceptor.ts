@@ -17,7 +17,7 @@ export class WeatherApiInterceptor implements HttpInterceptor {
     // Adding access key if this request is to https://api.openweathermap.org/
     if (request.url.indexOf(environment.api_url) !== -1) {
       const cloneRequest = request.clone({
-        params: new HttpParams().set('appid', environment.api_key)
+        params: request.params.set('appid', environment.api_key)
       });
   
       return next.handle(cloneRequest);

@@ -8,7 +8,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let weatherServiceMock;
   beforeEach(async () => {
-    weatherServiceMock = jasmine.createSpyObj('WeatherService', ['getCurrentWeatherData'])
+    weatherServiceMock = jasmine.createSpyObj('WeatherService', ['getCurrentWeatherData', 'getProbabilitOfPrecipitationForToday'])
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent

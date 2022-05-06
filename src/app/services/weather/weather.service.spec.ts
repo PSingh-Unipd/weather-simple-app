@@ -22,7 +22,7 @@ describe('WeatherService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('GetCurrentWeatherData method', () => {
+  describe('getCurrentWeatherData method', () => {
 
     const url: string = 'https://api.openweathermap.org/data/2.5/weather?q=london&units=metric';
 
@@ -50,7 +50,8 @@ describe('WeatherService', () => {
             icon: '04n',
             humidity: 72,
             temp: 14.23,
-            pop: 0
+            pop: 0,
+            coord: { lat: 2, lon: 1 }
           }
         )
       );
@@ -59,7 +60,8 @@ describe('WeatherService', () => {
         {
           main: { temp: 14.23, 'humidity': 72 },
           name: 'London',
-          weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }]
+          weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+          coord: { lat: 2, lon: 1 }
         }
       );
 
