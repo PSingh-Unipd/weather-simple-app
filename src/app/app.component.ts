@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   loadWeatherData(): void {
-    zip(['london', 'Paris', 'New York', 'Los Angeles', 'Tokyo'].map((city: string) =>
+    zip(['London', 'Paris', 'New York', 'Los Angeles', 'Tokyo'].map((city: string) =>
       this.service.getGeocodingInfo(city, 1).pipe(
         mergeMap((geo: IGeoCodingData[]) => {
           if (geo.length > 0) {
