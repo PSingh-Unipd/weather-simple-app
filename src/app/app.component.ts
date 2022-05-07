@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }),
         catchError(err => {
           // Using service like Bugsnag is possible to log and easily manage these errors
-          return of({ name: 'london', description: '', icon: '', humidity: 0, pop: 0, temp: 0 })
+          return of({ name: 'London', description: '', icon: '', humidity: 0, pop: 0, temp: 0 })
         }),
         takeUntil(this.destroy$)
       )

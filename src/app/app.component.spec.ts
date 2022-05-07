@@ -100,7 +100,7 @@ describe('AppComponent', () => {
       weatherServiceMock.getGeocodingInfo.and.returnValue(of([]));
   
       fixture.detectChanges();
-      expect(fixture.componentInstance.list[0]).toEqual({ name: 'london', description: '', icon: '', humidity: 0, pop: 0, temp: 0 });
+      expect(fixture.componentInstance.list[0]).toEqual({ name: 'London', description: '', icon: '', humidity: 0, pop: 0, temp: 0 });
     });
 
     it('should load correct weather data', () => {
@@ -108,7 +108,7 @@ describe('AppComponent', () => {
       weatherServiceMock.getWeatherData.and.returnValue(of(mockTestWeatherData));
       
       fixture.detectChanges();
-      expect(fixture.componentInstance.list[0]).toEqual({ name: 'london', description: 'test', icon: 'test', humidity: 23, pop: 23, temp: 23 });
+      expect(fixture.componentInstance.list[0]).toEqual({ name: 'London', description: 'test', icon: 'test', humidity: 23, pop: 23, temp: 23 });
     });
 
     it('should set weather PoP to 0', () => {
