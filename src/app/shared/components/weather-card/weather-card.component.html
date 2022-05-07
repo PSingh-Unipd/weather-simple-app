@@ -7,7 +7,7 @@
     <img [src]="'http://openweathermap.org/img/w/' + data.icon + '.png'">
   </div>
   <div class="card__secondary">
-    <p class="card__secondary--humidity"><span>Humidity:</span> {{ data.humidity }}%</p>
-    <p class="card__secondary--perception "><span>Chance of rain:</span> {{ data.pop * 100 }}%</p>
+    <p class="card__secondary--humidity">Humidity: {{ data.humidity }}%</p>
+    <p class="card__secondary--perception ">Precipitation: {{ data.pop * 100 }}%</p>
   </div>
 </div>

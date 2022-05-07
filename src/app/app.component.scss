@@ -1,10 +1,14 @@
 .container {
   background-color: #F5F3F5;
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px;
+  // gap: 15px;
+
+  app-weather-card {
+    margin: 8px;
+  }
 }
