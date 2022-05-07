@@ -95,13 +95,6 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       expect(fixture.componentInstance.list.length).toBe(5);
     });
-  
-    it('(Error handle) should load correct weather data', () => {
-      weatherServiceMock.getGeocodingInfo.and.returnValue(of([]));
-  
-      fixture.detectChanges();
-      expect(fixture.componentInstance.list[0]).toEqual({ name: 'London', description: '', icon: '', humidity: 0, pop: 0, temp: 0 });
-    });
 
     it('should load correct weather data', () => {
       weatherServiceMock.getGeocodingInfo.and.returnValue(of([{ name: 'London', local_names: { it: 'Londra' }, 'lat': 51.5073219, 'lon': -0.1276474, 'country': 'GB'}]));
